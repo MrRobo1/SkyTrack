@@ -1,22 +1,34 @@
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, } from "typeorm";
-
+import { ObjectType, Field, ID } from "type-graphql";
+import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Flight } from "./flight.entity";
+@ObjectType()
 @Entity()
 export class Pilot extends BaseEntity {
+    @Field(() => ID)
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Field()
     @Column()
     name: string;
 
+    @Field()
     @Column()
     email: string;
 
+    @Field()
     @Column()
     password: string;
 
+    @Field()
     @Column()
     registration_date: Date;
 
+    @Field()
     @Column()
     avatar: string;
+
+    @Field(() => [Flight])
+    @OneToMany(() => Flight, (flight) => flight.pilot)
+    flights: Flight[];
 }
