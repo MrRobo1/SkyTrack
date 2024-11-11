@@ -10,19 +10,19 @@ export class Airport extends BaseEntity {
     id: number;
 
     @Field()
-    @Column('float')
+    @Column('varchar')
     airport_name: string;
 
     @Field()
-    @Column('time')
+    @Column('varchar')
     code_ICAO: string;
 
     @Field()
-    @Column('time')
+    @Column('varchar')
     city: string;
 
     @Field()
-    @Column('date')
+    @Column('varchar')
     country: string;
 
     @Field(() => [Flight])

@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID } from "type-graphql";
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, OneToMany, CreateDateColumn } from "typeorm";
 import { Flight } from "./flight.entity";
 @ObjectType()
 @Entity()
@@ -21,7 +21,7 @@ export class Pilot extends BaseEntity {
     password: string;
 
     @Field()
-    @Column()
+    @CreateDateColumn({name: 'registration_date'})
     registration_date: Date;
 
     @Field()
