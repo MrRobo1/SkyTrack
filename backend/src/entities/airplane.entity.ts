@@ -10,11 +10,11 @@ export class Airplane extends BaseEntity {
     id: number;
 
     @Field()
-    @Column('float')
+    @Column('varchar')
     airplane_name: string;
 
     @Field()
-    @Column('time')
+    @Column('varchar')
     registration: string;
 
     @Field(() => [Flight])

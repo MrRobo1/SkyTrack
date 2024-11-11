@@ -11,27 +11,27 @@ export class Flight extends BaseEntity {
     id: number;
 
     @Field()
-    @Column('float')
+    @Column('number')
     distance: number;
 
     @Field()
-    @Column('time')
+    @Column()
     departure_time: string;
 
     @Field()
-    @Column('time')
+    @Column()
     arrival_time: string;
 
     @Field()
-    @Column('date')
+    @Column()
     flight_date: string;
 
     @Field()
-    @Column('int')
+    @Column()
     number_of_passangers: number;
 
     @Field()
-    @Column('float')
+    @Column()
     fuel_quantity: number;
 
     @Field()
