@@ -2,9 +2,12 @@
 import { z } from "zod";
 import Image from "next/image";
 import Link from "next/link";
+import { CREATE_PILOT } from "@/lib/graphql/mutations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,6 +20,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 const Welcome = () => {
+  const router = useRouter();
   const [showForm, setShowForm] = useState(false);
 
   const formSchema = z.object({
@@ -39,11 +43,25 @@ const Welcome = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  const [createUser, { loading, error }] = useMutation(CREATE_PILOT);
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await createUser({
+        variables: {
+          username: values.username,
+          email: values.email,
+          password: values.password,
+        },
+      });
+      console.log("User created", response.data.createUser);
+      router.push("/login");
+    } catch (error) {
+      console.error("Rerror creating user:", error);
+    }
     console.log(values);
   }
+
   return (
     <main
       className="flex items-center justify-center h-screen"
@@ -142,9 +160,12 @@ const Welcome = () => {
                     </FormItem>
                   )}
                 />
+                {error && (
+                  <p className="text-red-500 mt-2">Error: {error.message}</p>
+                )}
                 <div className="flex gap-4">
-                  <Button type="submit" variant="outline">
-                    Submit
+                  <Button type="submit" variant="outline" disabled={loading}>
+                    {loading ? "Submitting..." : "Submit"}
                   </Button>
                   <Button asChild>
                     <Link href="/login">Login</Link>
