@@ -24,7 +24,7 @@ const Welcome = () => {
   const [showForm, setShowForm] = useState(false);
 
   const formSchema = z.object({
-    username: z
+    name: z
       .string()
       .min(3, {
         message: "Username must be at least 3 characters long",
@@ -37,7 +37,7 @@ const Welcome = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      name: "",
       email: "",
       password: "",
     },
@@ -47,19 +47,20 @@ const Welcome = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const response = await createUser({
+      await createUser({
         variables: {
-          username: values.username,
-          email: values.email,
-          password: values.password,
+          newPilotData: {
+            name: values.name,
+            email: values.email,
+            password: values.password,
+            avatar: "",
+          },
         },
       });
-      console.log("User created", response.data.createUser);
       router.push("/login");
     } catch (error) {
       console.error("Rerror creating user:", error);
     }
-    console.log(values);
   }
 
   return (
@@ -112,7 +113,7 @@ const Welcome = () => {
               >
                 <FormField
                   control={form.control}
-                  name="username"
+                  name="name"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Username</FormLabel>
