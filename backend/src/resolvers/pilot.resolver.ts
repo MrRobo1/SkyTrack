@@ -1,6 +1,7 @@
-import { Resolver, Query, Arg } from "type-graphql";
+import { Mutation, Resolver, Query, Arg } from "type-graphql";
 import { Pilot } from "../entities/pilot.entity";
 import { PilotService } from "../services/pilot.service";
+import { InputPilotCreate } from "../inputs/inputPilotCreate";
 
 @Resolver(() => Pilot)
 export default class PilotResolver {
@@ -21,6 +22,17 @@ export default class PilotResolver {
         } catch (error) {
             console.error("Error in getPilotByEmail query:", error);
             throw new Error("Error while fetching pilot by email");
+        }
+    }
+
+    @Mutation(() => String)
+    async register(@Arg("newPilotData") newPilotData: InputPilotCreate): Promise<String> {
+        try {
+            await this.pilotService.createPilot(newPilotData);
+            return "New pilot has been created with sucess";
+        } catch (error) {
+            console.error("Error in createPilot resolver:", error);
+            throw new Error("Error while creating pilot");
         }
     }
 }
