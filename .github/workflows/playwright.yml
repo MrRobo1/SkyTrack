@@ -6,15 +6,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+
       - name: Install dependencies
         run: npm install -g pnpm && pnpm install
+
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
+
+      - name: Start Next.js server
+        run: pnpm dev &
+        env:
+          PORT: 3000
+      - name: Wait for Next.js to be ready
+        run: |
+          until curl -s http://localhost:3000 > /dev/null; do
+            echo "Waiting for Next.js server to start...";
+            sleep 2;
+          done
       - name: Run Playwright tests
         run: pnpm exec playwright test
+
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
