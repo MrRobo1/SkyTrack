@@ -17,11 +17,6 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
 
-      - name: Start Next.js server
-        run: pnpm run dev &
-        env:
-          PORT: 3000
-
       - name: Run Playwright tests
         run: pnpm exec playwright test
 
