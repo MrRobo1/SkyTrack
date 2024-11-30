@@ -6,12 +6,7 @@ services:
       context: ./backend
     ports:
       - "4000:4000"
-    environment:
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${DB_NAME}
+    env_file: .env.dev
     depends_on:
       db:
         condition: service_healthy
@@ -27,10 +22,7 @@ services:
 
   db:
     image: postgres:15-alpine
-    environment:
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+    env_file: .env.dev
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d ulas -U ulas"]
       retries: 5
