@@ -8,5 +8,20 @@ jobs:
     steps:
       - name: ⚙️ Check out code
         uses: actions/checkout@v4
-      - name: ⚙️ Run test e2e
+
+      - name: 🔑 Set environment variables from secrets
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+        run: |
+          echo "DB_HOST=${DB_HOST}" >> .env.e2e
+          echo "DB_PORT=${DB_PORT}" >> .env.e2e
+          echo "DB_USERNAME=${DB_USERNAME}" >> .env.e2e
+          echo "DB_PASSWORD=${DB_PASSWORD}" >> .env.e2e
+          echo "DB_NAME=${DB_NAME}" >> .env.e2e
+
+      - name: 🐳 Run tests
         run: docker compose -f docker-compose.e2e.yml up --build --exit-code-from e2e
