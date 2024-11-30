@@ -7,6 +7,9 @@ services:
     ports:
       - "4000:4000"
     env_file: .env.e2e
+    healthcheck:
+      test: 'curl --fail --request POST --header ''content-type: application/json'' --url ''http://localhost:4000'' --data ''{"query":"query { __typename }"}'' || exit 1'
+      retries: 10
     depends_on:
       db:
         condition: service_healthy
@@ -16,6 +19,9 @@ services:
       context: ./frontend
     ports:
       - "3000:3000"
+    healthcheck:
+      test: "curl --fail --request GET --header 'content-type: application/json' --url 'http://localhost:3000/api/healthcheck' || exit 1"
+      retries: 10
     depends_on:
       backend:
         condition: service_healthy
@@ -24,9 +30,7 @@ services:
     image: postgres:15-alpine
     env_file: .env.e2e
     environment:
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-defaultpassword}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d ulas -U ulas"]
       retries: 5
