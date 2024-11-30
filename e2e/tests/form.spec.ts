@@ -5,7 +5,9 @@ test('Submit form and navigate to login', async ({ page }) => {
 
     await page.click('main');
 
-    await page.waitForSelector('input[placeholder="Enter your username"]');
+    await page.waitForSelector('input[placeholder="Enter your username"]', {
+        state: 'visible',
+      });
 
     await page.fill('input[placeholder="Enter your username"]', 'John Doe');
     await page.fill('input[placeholder="Enter your email"]', 'johndoe@example.com');
