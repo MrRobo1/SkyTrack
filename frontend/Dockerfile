@@ -9,10 +9,12 @@ COPY package.json ./
 COPY pnpm-lock.yaml ./
 
 # Installer PNPM et les dépendances
-RUN npm install -g pnpm && pnpm install
+RUN npm install -g pnpm && pnpm install --frozen-lockfile
 
 # Copier tout le code source
 COPY . .
+
+RUN pnpm build
 
 # Exposer le port de l'application
 EXPOSE 3000
