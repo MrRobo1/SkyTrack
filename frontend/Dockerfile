@@ -1,6 +1,10 @@
 # Utilise une image officielle Node.js comme base
 FROM node:20.11.0-alpine
 
+RUN apk add --no-cache libc6-compat curl
+RUN corepack enable pnpm
+RUN corepack prepare pnpm@9.7.0 --activate
+
 # Définir le répertoire de travail
 WORKDIR /app
 
@@ -9,15 +13,10 @@ COPY package.json ./
 COPY pnpm-lock.yaml ./
 
 # Installer PNPM et les dépendances
-RUN npm install -g pnpm && pnpm install --frozen-lockfile
+RUN pnpm install
 
 # Copier tout le code source
 COPY . .
 
-RUN pnpm build
-
-# Exposer le port de l'application
-EXPOSE 3000
-
 # Commande pour démarrer l'application
-CMD ["pnpm", "dev"]
+CMD pnpm dev

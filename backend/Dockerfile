@@ -3,6 +3,8 @@ FROM node:20.11.0-alpine
 
 # Installer curl pour les healthchecks
 RUN apk add --no-cache curl
+RUN corepack enable pnpm
+RUN corepack prepare pnpm@9.7.0 --activate
 
 # Définir le répertoire de travail
 WORKDIR /app
@@ -12,13 +14,10 @@ COPY package.json ./
 COPY pnpm-lock.yaml ./
 
 # Installer PNPM et les dépendances
-RUN npm install -g pnpm && pnpm install
+RUN pnpm install
 
 # Copier tout le code source
 COPY . .
 
-# Exposer le port de l'application
-EXPOSE 4000
-
 # Commande pour démarrer l'application
-CMD ["pnpm", "dev"]
+CMD pnpm start
