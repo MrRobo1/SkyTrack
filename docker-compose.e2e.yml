@@ -45,7 +45,6 @@ services:
     image: postgres:15-alpine
     container_name: postgres_db
     restart: always
-    env_file: .env.e2e
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-defaultpassword}
       POSTGRES_USER: ${DB_USERNAME}
