@@ -19,7 +19,7 @@ export class Flight extends BaseEntity {
     departure_time: Date;
 
     @Field()
-    @Column('time', {name: 'departure_time'})
+    @Column('time', {name: 'arrival_time'})
     arrival_time: Date;
 
     @Field()
