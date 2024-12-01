@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('Submit form and navigate to login', async ({ page }) => {
-    await page.goto('http://localhost:3000');
+    await page.goto('http://frontend:3000');
 
     await page.click('main');
 

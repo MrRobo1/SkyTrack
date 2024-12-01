@@ -18,5 +18,7 @@ RUN pnpm install
 # Copier tout le code source
 COPY . .
 
+RUN pnpm build
+
 # Commande pour démarrer l'application
 CMD pnpm dev

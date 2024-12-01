@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright
+FROM mcr.microsoft.com/playwright:v1.49.0-jammy
 
 RUN corepack enable pnpm
 RUN corepack prepare pnpm@9.7.0 --activate
