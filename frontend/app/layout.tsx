@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import ApolloClientProvider from "../lib/apollo-client-provider";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+// const geistSans = localFont({
+//   src: "./fonts/GeistVF.woff",
+//   variable: "--font-geist-sans",
+//   weight: "100 900",
+// });
+// const geistMono = localFont({
+//   src: "./fonts/GeistMonoVF.woff",
+//   variable: "--font-geist-mono",
+//   weight: "100 900",
+// });
 
 export const metadata: Metadata = {
   title: "SkyTrack",
@@ -27,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gradient-to-b from-[#094A9A] to-[#208DEC] flex items-center justify-center`}
+        className={`antialiased min-h-screen bg-gradient-to-b from-[#094A9A] to-[#208DEC] flex items-center justify-center`}
       >
         <ApolloClientProvider>{children}</ApolloClientProvider>
       </body>

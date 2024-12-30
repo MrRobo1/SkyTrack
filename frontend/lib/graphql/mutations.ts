@@ -8,12 +8,6 @@ export const CREATE_PILOT = gql`
 
 export const LOGIN_PILOT = gql`
   mutation Login($loginData: InputPilotLogin!) {
-    login(loginData: $loginData) {
-      token
-      pilot {
-        email
-        name
-      }
-    }
+    login(loginData: $loginData)
   }
 `;
