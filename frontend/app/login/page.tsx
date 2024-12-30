@@ -53,6 +53,8 @@ const Login = () => {
       if (token) {
         localStorage.setItem("token", token);
         router.push("/dashboard");
+      } else {
+        console.error("Token is missing from the response");
       }
     } catch (error) {
       console.error("Error logging in:", error);

@@ -3,6 +3,8 @@ import { test, expect } from '@playwright/test';
 test('Submit form and navigate to login', async ({ page }) => {
     await page.goto('http://frontend:3000');
 
+    await page.reload();
+
     await page.click('main');
 
     await page.waitForSelector('input[placeholder="Enter your username"]', {
