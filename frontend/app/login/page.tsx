@@ -52,7 +52,7 @@ const Login = () => {
       const token = data?.login?.token;
       if (token) {
         localStorage.setItem("token", token);
-        router.push("/dashboard"); // Redirige vers une page protégée
+        router.push("/dashboard");
       }
     } catch (error) {
       console.error("Error logging in:", error);
