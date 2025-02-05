@@ -2,7 +2,7 @@
 import { z } from "zod";
 import Image from "next/image";
 import Link from "next/link";
-import { CREATE_PILOT } from "@/lib/graphql/mutations";
+import { CREATE_PILOT } from "@/app/lib/graphql/mutations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";

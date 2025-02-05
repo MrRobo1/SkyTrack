@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ApolloClientProvider from "../lib/apollo-client-provider";
+import ApolloClientProvider from "@/app/lib/apollo-client-provider";
 import "./globals.css";
 import { inter } from "@/app/ui/fonts";
 
