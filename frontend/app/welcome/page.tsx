@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/ui/button";
 import {
   Form,
   FormControl,
@@ -17,8 +17,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/app/ui/form";
+import { Input } from "@/app/ui/input";
 const Welcome = () => {
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
