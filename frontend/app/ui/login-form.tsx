@@ -3,11 +3,9 @@
 import { z } from "zod";
 import Image from "next/image";
 import Link from "next/link";
-import { LOGIN_PILOT } from "@/app/lib/graphql/mutations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/ui/button";
 import {
@@ -23,6 +21,8 @@ import { Input } from "@/app/ui/input";
 export default function LoginForm() {
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const formSchema = z.object({
     email: z.string().email(),
@@ -37,28 +37,38 @@ export default function LoginForm() {
     },
   });
 
-  const [loginUser, { loading, error }] = useMutation(LOGIN_PILOT);
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true);
+    setErrorMsg(null);
+
     try {
-      const { data } = await loginUser({
-        variables: {
-          loginData: {
-            email: values.email,
-            password: values.password,
-          },
-        },
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+        body: JSON.stringify({
+          email: values.email,
+          password: values.password,
+        }),
       });
 
-      const token = data?.login?.token;
-      if (token) {
-        localStorage.setItem("token", token);
-        router.push("/dashboard");
-      } else {
-        console.error("Token is missing from the response");
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "An error occured");
       }
-    } catch (error) {
+      router.push("/dashboard");
+    } catch (error: unknown) {
+      console.log("GRAPHQL=", process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT);
+
       console.error("Error logging in:", error);
+      if (error instanceof Error) {
+        setErrorMsg(error.message);
+      } else {
+        setErrorMsg("An unknown error occurred");
+      }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -142,8 +152,8 @@ export default function LoginForm() {
                     </FormItem>
                   )}
                 />
-                {error && (
-                  <p className="text-red-500 mt-2">Error: {error.message}</p>
+                {errorMsg && (
+                  <p className="text-red-500 mt-2">Error: {errorMsg}</p>
                 )}
                 <div className="flex gap-4">
                   <Button type="submit" variant="outline" disabled={loading}>
