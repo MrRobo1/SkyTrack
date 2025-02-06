@@ -1,9 +1,9 @@
-import Welcome from "./welcome/page";
+import Register from "@/app/ui/register";
 
 export default function Home() {
   return (
     <div>
-      <Welcome />
+      <Register />
     </div>
   );
 }

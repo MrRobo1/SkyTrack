@@ -1,17 +1,7 @@
 import type { Metadata } from "next";
-import ApolloClientProvider from "../lib/apollo-client-provider";
+import ApolloClientProvider from "@/app/lib/apollo-client-provider";
 import "./globals.css";
-
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
+import { inter } from "@/app/ui/fonts";
 
 export const metadata: Metadata = {
   title: "SkyTrack",
@@ -26,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`antialiased min-h-screen bg-gradient-to-b from-[#094A9A] to-[#208DEC] flex items-center justify-center`}
+        className={`${inter.className} antialiased bg-gradient-to-b from-[#094A9A] to-[#208DEC]`}
       >
         <ApolloClientProvider>{children}</ApolloClientProvider>
       </body>
