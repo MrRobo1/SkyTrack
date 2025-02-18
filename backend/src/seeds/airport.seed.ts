@@ -1,5 +1,3 @@
-// seeds/airport.seed.ts
-
 import { Airport } from "../entities/airport.entity";
 import dataSource from "../config/datasource";
 

@@ -2,7 +2,7 @@ import dataSource from "./config/datasource";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { buildSchema } from "type-graphql";
-import { PilotResolver } from "./resolvers";
+import { PilotResolver, AirportResolver, AirplaneResolver, FlightResolver } from "./resolvers";
 import * as jwt from "jsonwebtoken";
 
 const start = async () => {
@@ -19,7 +19,7 @@ const start = async () => {
     }
 
     const schema = await buildSchema({
-        resolvers: [PilotResolver],
+        resolvers: [PilotResolver, AirportResolver, AirplaneResolver, FlightResolver],
     });
 
     const server = new ApolloServer({ schema });
