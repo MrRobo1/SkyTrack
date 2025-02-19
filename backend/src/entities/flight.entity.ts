@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany, CreateDateColumn } from "typeorm";
+import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn } from "typeorm";
 import { Pilot } from "./pilot.entity";
 import { Airplane } from "./airplane.entity";
 import { Airport } from "./airport.entity";
@@ -15,11 +15,11 @@ export class Flight extends BaseEntity {
     distance: number;
 
     @Field()
-    @Column('time', {name: 'departure_time'})
+    @Column('timestamp', {name: 'departure_time'})
     departure_time: Date;
 
     @Field()
-    @Column('time', {name: 'arrival_time'})
+    @Column('timestamp', {name: 'arrival_time'})
     arrival_time: Date;
 
     @Field()
@@ -43,10 +43,14 @@ export class Flight extends BaseEntity {
     pilot: Pilot;
 
     @Field(() => Airplane)
-    @OneToMany(() => Airplane, (airplane) => airplane.flights)
+    @ManyToOne(() => Airplane, (airplane) => airplane.flights)
     airplane: Airplane;
 
     @Field(() => Airport)
-    @OneToMany(() => Airport, (airport) => airport.flights)
-    airport: Airport;
+    @ManyToOne(() => Airport, (airport) => airport.departures)
+    departure_airport: Airport;
+
+    @Field(() => Airport)
+    @ManyToOne(() => Airport, (airport) => airport.arrivals)
+    arrival_airport: Airport;
 }

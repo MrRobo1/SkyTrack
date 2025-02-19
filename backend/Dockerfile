@@ -19,5 +19,10 @@ RUN pnpm install
 # Copier tout le code source
 COPY . .
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+
 # Commande pour démarrer l'application
-CMD pnpm start
+# CMD pnpm start

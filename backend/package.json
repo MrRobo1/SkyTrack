@@ -6,7 +6,9 @@
   "scripts": {
     "start": "ts-node-dev --watch ./src src/index.ts",
     "dev": "ts-node-dev src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed:airplane": "pnpm exec ts-node-dev src/seeds/airplane.seed.ts",
+    "seed:airport": "pnpm exec ts-node-dev src/seeds/airport.seed.ts"
   },
   "keywords": [],
   "author": "",
