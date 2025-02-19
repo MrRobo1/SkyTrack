@@ -6,7 +6,10 @@ export class CreateFlightInput {
     airplaneId: number;
 
     @Field()
-    airportId: number;
+    departure_airport: number;
+
+    @Field()
+    arrival_airport: number;
 
     @Field()
     distance: number;

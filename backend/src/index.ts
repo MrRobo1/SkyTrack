@@ -4,6 +4,7 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { buildSchema } from "type-graphql";
 import { PilotResolver, AirportResolver, AirplaneResolver, FlightResolver } from "./resolvers";
 import * as jwt from "jsonwebtoken";
+import { MyContext, AuthTokenPayload } from "./types/index";
 
 const start = async () => {
     try {
@@ -22,9 +23,9 @@ const start = async () => {
         resolvers: [PilotResolver, AirportResolver, AirplaneResolver, FlightResolver],
     });
 
-    const server = new ApolloServer({ schema });
+    const server = new ApolloServer<MyContext>({ schema });
 
-    const { url } = await startStandaloneServer(server, {
+    const { url } = await startStandaloneServer<MyContext>(server, {
         listen: { port: 4000 },
         context: async ({ req }) => {
             const token = req.headers.authorization?.split("Bearer ")[1];
@@ -33,7 +34,7 @@ const start = async () => {
             }
             
             try {
-                const decodedToken = jwt.verify(token, jwtSecret);
+                const decodedToken = jwt.verify(token, jwtSecret) as AuthTokenPayload;
                 return { user: decodedToken };
             } catch (error) {
                 console.error("Invalid token:", error);

@@ -26,6 +26,10 @@ export class Airport extends BaseEntity {
     country: string;
 
     @Field(() => [Flight])
-    @OneToMany(() => Flight, (flight) => flight.airport)
-    flights: Flight[];
+    @OneToMany(() => Flight, (flight) => flight.departure_airport)
+    departures: Flight[];
+
+    @Field(() => [Flight])
+    @OneToMany(() => Flight, (flight) => flight.arrival_airport)
+    arrivals: Flight[];
 }
