@@ -7,7 +7,14 @@ import { CreateFlightInput } from "../inputs/createFlightInput";
 export class FlightService {
     async getAllFlight(): Promise<Flight []> {
             try {
-                return await Flight.find();
+                return await Flight.find({
+                    relations: {
+                        airplane: true,
+                        departure_airport: true,
+                        arrival_airport: true,
+                        pilot: true,
+                    },
+                });
             } catch (error) {
                 console.error("Error while getting all flights:", error);
                 throw new Error("Error while getting all flights");

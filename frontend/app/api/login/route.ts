@@ -17,8 +17,6 @@ export async function POST(request: Request) {
       body: JSON.stringify({ query: queryString, variables }),
     });
 
-    console.log("GraphQL status code:", res.status, res.statusText);
-
     if (!res.ok) {
       return NextResponse.json(
         { error: "GraphQL request failed" },
