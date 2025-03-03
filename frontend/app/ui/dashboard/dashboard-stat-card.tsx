@@ -3,7 +3,7 @@ interface DashboardCardProps {
   distance: number;
   hours: number;
 }
-export default function DashboardCard({
+export default function DashboardStatCard({
   flightNumber,
   distance,
   hours,

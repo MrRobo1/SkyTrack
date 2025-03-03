@@ -18,3 +18,13 @@ export const GET_ALL_AIRPORTS = gql`
     }
   }
 `;
+
+export const GET_ALL_FLIGHTS = gql`
+  query GetAllFlights {
+    getAllFlights {
+      distance
+      departure_time
+      arrival_time
+    }
+  }
+`;
