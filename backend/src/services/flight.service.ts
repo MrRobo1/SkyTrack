@@ -58,4 +58,22 @@ export class FlightService {
         await flight.save();
         return flight;
     }
+
+    async getLastFlight(): Promise<Flight | null> {
+        try {
+            const [flight] = await Flight.find({
+                order: { id: "DESC" },
+                relations: {
+                    airplane: true,
+                    departure_airport: true,
+                    arrival_airport: true,
+                },
+                take: 1,
+            })
+            return flight || null;
+        } catch (error) {
+            console.error("Error while getting last flight:", error);
+            throw new Error("Error while getting last flights");
+        }
+    }
 }

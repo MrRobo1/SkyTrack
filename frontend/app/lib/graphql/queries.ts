@@ -28,3 +28,25 @@ export const GET_ALL_FLIGHTS = gql`
     }
   }
 `;
+
+export const GET_LAST_FLIGHT = gql`
+  query GetLastFlight {
+    getLastFlight {
+      id
+      distance
+      departure_time
+      arrival_time
+      airplane {
+        id
+        airplane_name
+        registration
+      }
+      departure_airport {
+        code_ICAO
+      }
+      arrival_airport {
+        code_ICAO
+      }
+    }
+  }
+`;

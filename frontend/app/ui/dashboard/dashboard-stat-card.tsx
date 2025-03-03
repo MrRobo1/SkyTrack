@@ -9,7 +9,7 @@ export default function DashboardStatCard({
   hours,
 }: DashboardCardProps) {
   return (
-    <div className="bg-white shadow-md rounded-md p-6 space-y-4">
+    <div className="bg-white shadow-md rounded-md p-6 space-y-4 w-full max-w-xl">
       <h2 className="text-lg font-bold text-black">Stat</h2>
       <div className="flex justify-between text-gray-600 mb-2">
         <div className="flex flex-col">
