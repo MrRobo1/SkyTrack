@@ -1,3 +1,4 @@
+import Image from "next/image";
 interface LastFlightCardProps {
   registration: string;
   departure: string;
@@ -14,16 +15,16 @@ export default function LastFlightCard({
   flightTime,
 }: LastFlightCardProps) {
   return (
-    <div className="bg-white rounded-md shadow-md p-4 space-x-4 w-full max-w-xl">
+    <div className="bg-white rounded-md shadow-md p-6 space-x-4 w-full max-w-xl">
       <h2 className="text-lg font-bold text-black">Last flight</h2>
-      <div className="flex p-4 items-center">
-        <div className="flex-shrink-0">
-          <img
-            src="https://via.placeholder.com/150"
-            alt="Placeholder"
-            className="w-32 h-20 object-cover rounded-md"
-          />
-        </div>
+      <div className="flex p-4 items-center space-x-6">
+        <Image
+          src="/Transavia-B737.jpeg"
+          width={180}
+          height={400}
+          className="rounded-md"
+          alt="A Image of the airplane"
+        />
 
         {/* Informations du vol */}
         <div className="text-gray-600 flex flex-col space-y-1">
