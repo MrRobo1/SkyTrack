@@ -25,4 +25,10 @@ export default class FlightResolver {
 
         return this.flightService.createFlight(pilotId, data);
     }
+
+    @Query(() => Flight, { nullable:true })
+    async getLastFlight(): Promise<Flight | null> {
+        return this.flightService.getLastFlight();
+    }
+    
 }
