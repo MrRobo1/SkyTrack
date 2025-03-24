@@ -22,6 +22,15 @@ export const GET_ALL_AIRPORTS = gql`
 export const GET_ALL_FLIGHTS = gql`
   query GetAllFlights {
     getAllFlights {
+      airplane {
+        airplane_name
+      }
+      departure_airport {
+        code_ICAO
+      }
+      arrival_airport {
+        code_ICAO
+      }
       distance
       departure_time
       arrival_time
