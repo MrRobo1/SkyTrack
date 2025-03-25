@@ -9,7 +9,7 @@ import clsx from "clsx";
 
 const links = [
   { name: "Stat", href: "/dashboard", icon: GridiconsStatsAlt2 },
-  { name: "My flight", href: "/dashboard/flight", icon: MdiAirplaneSearch },
+  { name: "My flight", href: "/dashboard/myflight", icon: MdiAirplaneSearch },
   {
     name: "Add flight",
     href: "/dashboard/addflight",
