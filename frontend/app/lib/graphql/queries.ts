@@ -59,3 +59,14 @@ export const GET_LAST_FLIGHT = gql`
     }
   }
 `;
+
+export const GET_PROFILE = gql`
+  query GetProfile {
+    getProfile {
+      id
+      name
+      email
+      registration_date
+    }
+  }
+`;
