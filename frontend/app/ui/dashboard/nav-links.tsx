@@ -4,6 +4,7 @@ import Link from "next/link";
 import { GridiconsStatsAlt2 } from "@/app/ui/icons/StatIcon";
 import { MdiAirplaneSearch } from "@/app/ui/icons/MyFlightIcon";
 import { MdiAirplanePlus } from "@/app/ui/icons/AddFlightIcon";
+import { MaterialSymbolsPerson3 } from "@/app/ui/icons/ProfilIcon";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
@@ -15,6 +16,7 @@ const links = [
     href: "/dashboard/addflight",
     icon: MdiAirplanePlus,
   },
+  { name: "Profile", href: "/dashboard/profile", icon: MaterialSymbolsPerson3 },
 ];
 
 export default function NavLinks() {

@@ -1,4 +1,5 @@
-import { Mutation, Resolver, Query, Arg } from "type-graphql";
+import { Mutation, Resolver, Query, Arg, Ctx } from "type-graphql";
+import { MyContext } from "../types/index";
 import { Pilot } from "../entities/pilot.entity";
 import { PilotService } from "../services/pilot.service";
 import { InputPilotCreate } from "../inputs/inputPilotCreate";
@@ -25,6 +26,16 @@ export default class PilotResolver {
             console.error("Error in getPilotByEmail query:", error);
             throw new Error("Error while fetching pilot by email");
         }
+    }
+
+    @Query(() => Pilot, { nullable: true })
+    async getProfile(@Ctx() ctx: MyContext): Promise<Pilot | null> {
+        const pilotId = ctx.user?.id;
+        if (!pilotId) {
+            return null;
+        }
+        const pilot = await Pilot.findOne ({ where: { id: pilotId } });
+        return pilot || null;
     }
 
     @Mutation(() => String)
