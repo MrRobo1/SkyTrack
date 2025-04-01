@@ -82,6 +82,7 @@ export default function LoginForm() {
             alt="image d'avion sur fond blanc"
             width={150}
             height={150}
+            priority
           />
           <h2 className="text-3xl font-semibold mb-6">SkyTrack</h2>
         </div>
