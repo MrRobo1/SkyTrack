@@ -19,7 +19,8 @@ services:
 
   frontend:
     build: ./frontend
-    env_file: .env.test
+    environment:
+      NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL}
     healthcheck:
       test: "curl --fail --request GET --header 'content-type: application/json' --url 'http://localhost:3000/api/healthcheck' || exit 1"
       retries: 10
