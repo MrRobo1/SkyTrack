@@ -4,24 +4,36 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node-dev --watch ./src src/index.ts",
     "dev": "ts-node-dev src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed:airplane": "pnpm exec ts-node-dev src/seeds/airplane.seed.ts",
+    "seed:airport": "pnpm exec ts-node-dev src/seeds/airport.seed.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.11.2",
-    "graphql": "^16.9.0",
-    "pg": "^8.13.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "argon2": "^0.41.1",
+    "cookie": "^1.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "graphql": "^16.10.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.1",
     "reflect-metadata": "^0.2.2",
     "type-graphql": "2.0.0-rc.2",
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
-    "@types/express": "^5.0.0",
-    "@types/node": "^22.7.7",
+    "@types/cors": "^2.8.17",
+    "@types/dotenv": "^8.2.3",
+    "@types/express": "^4.17.17",
+    "@types/node": "^22.10.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   }
 }

@@ -13,7 +13,7 @@ export class Pilot extends BaseEntity {
     name: string;
 
     @Field()
-    @Column()
+    @Column({ unique: true })
     email: string;
 
     @Field()
@@ -24,9 +24,9 @@ export class Pilot extends BaseEntity {
     @CreateDateColumn({name: 'registration_date'})
     registration_date: Date;
 
-    @Field()
-    @Column()
-    avatar: string;
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    avatar?: string;
 
     @Field(() => [Flight])
     @OneToMany(() => Flight, (flight) => flight.pilot)
