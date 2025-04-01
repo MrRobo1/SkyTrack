@@ -73,7 +73,6 @@ export default function LoginForm() {
 
   return (
     <main className="flex min-h-screen">
-      {/* Section de gauche */}
       <section className="flex flex-col items-center justify-center w-1/2  text-white p-8">
         <h1 className="text-2xl font-bold mb-4">Welcome Back to</h1>
         <div className="flex flex-col items-center">
@@ -87,12 +86,10 @@ export default function LoginForm() {
           <h2 className="text-3xl font-semibold mb-6">SkyTrack</h2>
         </div>
         <p className="text-sm opacity-80 px-4 max-w-xs text-center">
-          Connectez-vous pour accéder à votre tableau de bord et suivre vos
-          informations de vol.
+          Log in to access your dashboard and track your flight information.
         </p>
       </section>
 
-      {/* Section de droite */}
       <section className="flex flex-col items-center justify-center w-1/2  p-8">
         <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
           <h2 className="text-center mb-3">Login</h2>
@@ -136,12 +133,20 @@ export default function LoginForm() {
                 <p className="text-red-500 mt-2">Error: {errorMsg}</p>
               )}
               <div className="flex flex-col gap-4">
-                <Button className="bg-blue-500 text-white" type="submit" variant="outline" disabled={loading}>
+                <Button
+                  className="bg-blue-500 text-white"
+                  type="submit"
+                  variant="outline"
+                  disabled={loading}
+                >
                   {loading ? "Logging in..." : "Login"}
                 </Button>
                 <p className="text-sm flex items-center gap-2">
                   Not registered yet?
-                  <Link className="text-blue-500 hover:text-blue-700 transition-colors" href="/">
+                  <Link
+                    className="text-blue-500 hover:text-blue-700 transition-colors"
+                    href="/"
+                  >
                     Create Account
                   </Link>
                 </p>
