@@ -20,7 +20,6 @@ import { Input } from "@/app/ui/input";
 
 export default function LoginForm() {
   const router = useRouter();
-  const [showForm, setShowForm] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -73,101 +72,89 @@ export default function LoginForm() {
   }
 
   return (
-    <main
-      className="flex items-center justify-center h-screen"
-      onClick={() => setShowForm(true)}
-    >
-      {!showForm ? (
-        <section>
-          <div className="flex flex-col items-center text-center text-white">
-            <h1 className="text-2xl font-bold mb-4">Welcome Back to</h1>
-            <div>
-              <Image
-                className="mb-4"
-                src="/logo.png"
-                alt="image d'avion sur fond blanc"
-                width={150}
-                height={150}
-              />
-              <h2 className="text-3xl font-semibold mb-6">SkyTrack</h2>
-            </div>
-            <div>
-              <p className="text-sm opacity-80 px-4 max-w-xs">
-                Connectez-vous pour accéder à votre tableau de bord et suivre
-                vos informations de vol.
-              </p>
-            </div>
-          </div>
-        </section>
-      ) : (
-        <section>
-          <div className="flex flex-col items-center text-center text-white">
-            <Image
-              className=""
-              src="/logo.png"
-              alt="image d'avion sur fond blanc"
-              width={140}
-              height={140}
-            />
-            <h2 className="text-2xl font-semibold mb-6">SkyTrack</h2>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-            <h2 className="text-center mb-3">Login</h2>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8"
-              >
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter your email"
-                          type="email"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter your password"
-                          type="password"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                {errorMsg && (
-                  <p className="text-red-500 mt-2">Error: {errorMsg}</p>
+    <main className="flex min-h-screen">
+      <section className="flex flex-col items-center justify-center w-1/2  text-white p-8">
+        <h1 className="text-2xl font-bold mb-4">Welcome Back to</h1>
+        <div className="flex flex-col items-center">
+          <Image
+            className="mb-4"
+            src="/logo.png"
+            alt="image d'avion sur fond blanc"
+            width={150}
+            height={150}
+          />
+          <h2 className="text-3xl font-semibold mb-6">SkyTrack</h2>
+        </div>
+        <p className="text-sm opacity-80 px-4 max-w-xs text-center">
+          Log in to access your dashboard and track your flight information.
+        </p>
+      </section>
+
+      <section className="flex flex-col items-center justify-center w-1/2  p-8">
+        <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+          <h2 className="text-center mb-3">Login</h2>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your email"
+                        type="email"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
-                <div className="flex gap-4">
-                  <Button type="submit" variant="outline" disabled={loading}>
-                    {loading ? "Logging in..." : "Login"}
-                  </Button>
-                  <Button asChild>
-                    <Link href="/">Create Account</Link>
-                  </Button>
-                </div>
-              </form>
-            </Form>
-          </div>
-        </section>
-      )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your password"
+                        type="password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {errorMsg && (
+                <p className="text-red-500 mt-2">Error: {errorMsg}</p>
+              )}
+              <div className="flex flex-col gap-4">
+                <Button
+                  className="bg-blue-500 text-white"
+                  type="submit"
+                  variant="outline"
+                  disabled={loading}
+                >
+                  {loading ? "Logging in..." : "Login"}
+                </Button>
+                <p className="text-sm flex items-center gap-2">
+                  Not registered yet?
+                  <Link
+                    className="text-blue-500 hover:text-blue-700 transition-colors"
+                    href="/"
+                  >
+                    Create Account
+                  </Link>
+                </p>
+              </div>
+            </form>
+          </Form>
+        </div>
+      </section>
     </main>
   );
 }
