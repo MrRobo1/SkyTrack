@@ -48,11 +48,11 @@ These instructions will help you run SkyTrack locally for development and testin
 3. **Configure environment variables**:
   Create a .env file in backend/ containing database and JWT settings, for example:
   ```bash
-      DB_HOST=localhost
-      DB_PORT=5432
-      DB_USERNAME=postgres
-      DB_PASSWORD=postgres
-      DB_NAME=skytrack
+      DB_HOST=""
+      DB_PORT=""
+      DB_USERNAME=""
+      DB_PASSWORD=""
+      DB_NAME=""
       JWT_SECRET=some_super_secret
       NEXT_PUBLIC_GRAPHQL_ENDPOINT=http://localhost:4000/graphql
   ```
