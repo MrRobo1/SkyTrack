@@ -40,10 +40,10 @@ These instructions will help you run SkyTrack locally for development and testin
     
 
   • Frontend:
-    ```bash
+    
     cd ../frontend
     pnpm install
-    ```
+    
 
 3. **Configure environment variables**:
   Create a .env file in backend/ containing database and JWT settings, for example:
