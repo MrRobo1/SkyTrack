@@ -1,55 +1,69 @@
-## SkyTrack
+# SkyTrack
 
-SkyTrack is a web application for pilots to manage their flights, track statistics (e.g., total flights, total distance, total hours flown), and store flight details (departure/arrival airports, aircraft, fuel usage, etc.). It’s designed to be simple and intuitive, offering insights into one’s flight history.
+**SkyTrack** is a web application for pilots to manage their flights, track statistics (e.g., total flights, total distance, total hours flown), and store flight details (departure/arrival airports, aircraft, fuel usage, etc.). It’s designed to be simple and intuitive, offering insights into one’s flight history.
 
-⸻
+---
 
-Features
-	•	User Registration & Authentication: Easily create an account and sign in via email and password.
-	•	Flight Management: Create and track flights, including departure/arrival airports, distance, and duration.
-	•	Statistics: View total flights, distance, and hours flown in a handy dashboard.
-	•	Responsive UI: Access the application from desktop or mobile devices.
+## Features
 
-⸻
+- **User Registration & Authentication**: Easily create an account and sign in via email and password.  
+- **Flight Management**: Create and track flights, including departure/arrival airports, distance, and duration.  
+- **Statistics**: View total flights, distance, and hours flown in a handy dashboard.  
+- **Responsive UI**: Access the application from desktop or mobile devices.
 
-Getting Started
+---
+
+## Getting Started
 
 These instructions will help you run SkyTrack locally for development and testing.
 
-Prerequisites
-	•	Node.js (v16 or higher recommended)
-	•	pnpm or npm for dependency management
-	•	Docker if you plan to run the application with Docker and Postgres
+### Prerequisites
 
-Installation Steps
-	1.	Clone the repository:
-       git clone https://github.com/YourUsername/SkyTrack.git
-       cd SkyTrack
+- [Node.js](https://nodejs.org/) (v16 or higher recommended)  
+- [pnpm](https://pnpm.io/) or npm for dependency management  
+- [Docker](https://www.docker.com/) if you plan to run the application with Docker and Postgres
 
-  	2.	Install dependencies:
-	•	Backend:
-      cd backend
-      pnpm install
+### Installation Steps
 
-  •	Frontend:
-      cd ../frontend
-      pnpm install
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/YourUsername/SkyTrack.git
+   cd SkyTrack
+   ```
 
-3.	Configure environment variables:
-	•	Create a .env file in backend/ containing database and JWT settings, for example:
+2. **Install dependencies**:
+  • Backend:
+    ```bash
+    cd backend
+    pnpm install
+    ```
+    
+
+  • Frontend:
+    ```bash
+    cd ../frontend
+    pnpm install
+    ```
+
+3. **Configure environment variables**:
+  Create a .env file in backend/ containing database and JWT settings, for example:
+  ```bash
       DB_HOST=localhost
       DB_PORT=5432
       DB_USERNAME=postgres
       DB_PASSWORD=postgres
       DB_NAME=skytrack
       JWT_SECRET=some_super_secret
-  	  NEXT_PUBLIC_GRAPHQL_ENDPOINT=http://localhost:4000/graphql
+      NEXT_PUBLIC_GRAPHQL_ENDPOINT=http://localhost:4000/graphql
+  ```
 
-4.	Run the application:
-	•	Using Docker (optional):
+5. **Run the application**:
+  Using Docker (optional):
+  ```bash
       docker-compose up --build
+  ```
 
-5.	Open your browser at http://localhost:3000/ and explore SkyTrack.
+6. **Open your browser at http://localhost:3000/ and explore SkyTrack.**
 
 ⸻
 
