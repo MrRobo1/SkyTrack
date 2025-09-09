@@ -15,7 +15,7 @@ export default function LastFlightCard({
   flightTime,
 }: LastFlightCardProps) {
   return (
-    <div className="bg-white rounded-md shadow-md p-6 space-x-4 w-full max-w-xl">
+    <div className="bg-sky-50 rounded-md shadow-md p-6 space-x-4 w-full max-w-xl">
       <h2 className="text-lg font-bold text-black">Last flight</h2>
       <div className="flex p-4 items-center space-x-6">
         <Image
