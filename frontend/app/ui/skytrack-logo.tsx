@@ -1,11 +1,15 @@
 import Image from "next/image";
 
-export default function SkytrackLogo() {
+type SkyTrackLogoProps = {
+  size?: number;
+};
+
+export default function SkytrackLogo({ size = 80 }: SkyTrackLogoProps) {
   return (
-    <div className="relative h-12 w-12 bg-white rounded-sm shadow-xs shadow-white">
+    <div className="relative shadow-xs" style={{ width: size, height: size }}>
       <Image
-        src="/LogoSkyTrack.png"
-        alt="Logo avion en papier"
+        src="/LogoSkyTrackWhite.png"
+        alt="Logo avion"
         fill
         className="object-contain"
       />
