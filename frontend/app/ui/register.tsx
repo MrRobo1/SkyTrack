@@ -1,6 +1,6 @@
 "use client";
 import { z } from "zod";
-import Image from "next/image";
+import SkytrackLogo from "@/app/ui/skytrack-logo";
 import Link from "next/link";
 import { CREATE_PILOT } from "@/app/lib/graphql/mutations";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -66,13 +66,7 @@ export default function Register() {
       <section className="flex flex-col items-center justify-center w-full md:w-1/2 text-white p-8">
         <h1 className="text-2xl font-bold mb-4">Welcome to</h1>
         <div className="flex flex-col items-center">
-          <Image
-            className="mb-4"
-            src="/logo.png"
-            alt="image d'avion sur fond blanc"
-            width={150}
-            height={150}
-          />
+          <SkytrackLogo size={150} />
           <h2 className="text-3xl font-semibold mb-6">SkyTrack</h2>
         </div>
         <p className="text-sm opacity-80 px-4 max-w-xs text-center">
