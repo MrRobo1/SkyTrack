@@ -62,8 +62,8 @@ export default function Register() {
   }
 
   return (
-    <main className="flex min-h-screen">
-      <section className="flex flex-col items-center justify-center w-1/2 text-white p-8">
+    <main className="flex flex-col md:flex-row min-h-screen">
+      <section className="flex flex-col items-center justify-center w-full md:w-1/2 text-white p-8">
         <h1 className="text-2xl font-bold mb-4">Welcome to</h1>
         <div className="flex flex-col items-center">
           <Image
@@ -84,7 +84,7 @@ export default function Register() {
         </p>
       </section>
 
-      <section className="flex flex-col items-center justify-center w-1/2 p-8">
+      <section className="flex flex-col items-center justify-center w-full md:w-1/2 p-8">
         <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
           <h2 className="text-center mb-3">Create your account</h2>
           <Form {...form}>
