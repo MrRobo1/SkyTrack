@@ -3,12 +3,14 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/app/ui/button";
+import { EditableNumberCell } from "@/app/dashboard/myflight/editable-cell";
 
 export type FlightRow = {
+  id: number;
   airplane: string;
   route: string;
   fuel: number | null;
-  passenger: number | null;
+  passengers: number | null;
   distance: number;
 };
 
@@ -37,7 +39,13 @@ export const columns: ColumnDef<FlightRow>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => (row.original.fuel ?? "-") as string | number,
+    cell: ({ row }) => (
+      <EditableNumberCell
+        rowId={row.original.id}
+        initialValue={row.original.fuel}
+        field="fuel_quantity"
+      />
+    ),
   },
   {
     accessorKey: "passengers",
@@ -52,7 +60,13 @@ export const columns: ColumnDef<FlightRow>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => (row.original.passenger ?? "-") as string | number,
+    cell: ({ row }) => (
+      <EditableNumberCell
+        rowId={row.original.id}
+        initialValue={row.original.passengers}
+        field="number_of_passangers"
+      />
+    ),
   },
   {
     accessorKey: "distance",
@@ -67,5 +81,12 @@ export const columns: ColumnDef<FlightRow>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => (
+      <EditableNumberCell
+        rowId={row.original.id}
+        initialValue={row.original.distance}
+        field="distance"
+      />
+    ),
   },
 ];

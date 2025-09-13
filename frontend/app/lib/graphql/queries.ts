@@ -22,6 +22,7 @@ export const GET_ALL_AIRPORTS = gql`
 export const GET_ALL_FLIGHTS = gql`
   query GetAllFlights {
     getAllFlights {
+      id
       airplane {
         airplane_name
       }

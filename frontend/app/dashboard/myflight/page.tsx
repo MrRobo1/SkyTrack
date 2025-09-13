@@ -4,8 +4,10 @@ import { useQuery } from "@apollo/client";
 import { GET_ALL_FLIGHTS } from "@/app/lib/graphql/queries";
 import { columns, FlightRow } from "./columns";
 import { DataTable } from "./data-table";
+import { ToastContainer } from "react-toastify";
 
 type GqlFlight = {
+  id: string;
   airplane?: { airplane_name?: string } | null;
   departure_airport?: { code_ICAO?: string } | null;
   arrival_airport?: { code_ICAO?: string } | null;
@@ -26,10 +28,11 @@ export default function Page() {
   const flights = (data.getAllFlights as GqlFlight[]) ?? [];
 
   const rows: FlightRow[] = flights.map((f) => ({
+    id: Number(f.id),
     airplane: f.airplane?.airplane_name ?? "-",
     route: `${f.departure_airport?.code_ICAO ?? "-"} → ${f.arrival_airport?.code_ICAO ?? "-"}`,
     fuel: typeof f.fuel_quantity === "number" ? f.fuel_quantity : null,
-    passenger:
+    passengers:
       typeof f.number_of_passangers === "number"
         ? f.number_of_passangers
         : null,
@@ -38,6 +41,7 @@ export default function Page() {
 
   return (
     <div className="container mx-auto py-10">
+      <ToastContainer position="top-right" autoClose={2000} />
       <DataTable columns={columns} data={rows} />
     </div>
   );

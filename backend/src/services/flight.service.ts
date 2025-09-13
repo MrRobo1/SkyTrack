@@ -3,6 +3,7 @@ import { Airplane } from "../entities/airplane.entity";
 import { Airport } from "../entities/airport.entity";
 import { Pilot } from "../entities/pilot.entity";
 import { CreateFlightInput } from "../inputs/createFlightInput";
+import { UpdateFlightInput } from "../inputs/updateFlightInput";
 
 export class FlightService {
     async getAllFlight(): Promise<Flight []> {
@@ -75,5 +76,36 @@ export class FlightService {
             console.error("Error while getting last flight:", error);
             throw new Error("Error while getting last flights");
         }
+    }
+
+    async updateFlight(id: number, data: UpdateFlightInput): Promise<Flight> {
+      const flight = await Flight.findOne({ where: { id } });
+      if (!flight) {
+        throw new Error("Flight not found");
+      }
+
+      if (typeof data.distance === "number") {
+        flight.distance = data.distance;
+      }
+      if (typeof data.number_of_passangers === "number") {
+        flight.number_of_passangers = data.number_of_passangers;
+      }
+      if (typeof data.fuel_quantity === "number") {
+        flight.fuel_quantity = data.fuel_quantity;
+      }
+
+      await flight.save();
+
+      const updated = await Flight.findOne({
+        where: { id: flight.id },
+        relations: {
+          airplane: true,
+          departure_airport: true,
+          arrival_airport: true,
+          pilot: true,
+        },
+      });
+
+      return updated ?? flight;
     }
 }
