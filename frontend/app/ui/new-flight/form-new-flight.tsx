@@ -4,7 +4,6 @@ import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { Button } from "@/app/ui/button";
 import {
   Form,
@@ -39,8 +38,6 @@ const createFlightSchema = z.object({
 type CreateFlightFormValues = z.infer<typeof createFlightSchema>;
 
 export default function CreateFlightForm() {
-  const router = useRouter();
-
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -148,7 +145,7 @@ export default function CreateFlightForm() {
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-8">
       <ToastContainer position="top-right" autoClose={2000} />
-      <div className="rounded-xl bg-white/80 backdrop-blur shadow-lg p-6">
+      <div className="rounded-xl bg-sky-50 backdrop-blur shadow-lg p-6">
         <h2 className="text-2xl font-bold mb-6 text-gray-900">
           Create a new flight
         </h2>
@@ -263,7 +260,7 @@ export default function CreateFlightForm() {
               render={({ field }) => (
                 <div>
                   <FormItem>
-                    <FormLabel>Distance (in NM or km)</FormLabel>
+                    <FormLabel>Distance (in NM)</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
@@ -290,7 +287,7 @@ export default function CreateFlightForm() {
               render={({ field }) => (
                 <div>
                   <FormItem>
-                    <FormLabel>Number of Passengers</FormLabel>
+                    <FormLabel>Number of PAX</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
@@ -361,7 +358,7 @@ export default function CreateFlightForm() {
               render={({ field }) => (
                 <div>
                   <FormItem>
-                    <FormLabel>Fuel Quantity</FormLabel>
+                    <FormLabel>Fuel Quantity used (in Kg)</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
