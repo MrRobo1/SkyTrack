@@ -31,6 +31,8 @@ export const GET_ALL_FLIGHTS = gql`
       arrival_airport {
         code_ICAO
       }
+      fuel_quantity
+      number_of_passangers
       distance
       departure_time
       arrival_time

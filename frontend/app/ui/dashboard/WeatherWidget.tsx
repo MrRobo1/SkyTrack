@@ -41,7 +41,7 @@ export default function WeatherWidget() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          load(pos.coords.latitude, pos.coords.longitude, "Votre position");
+          load(pos.coords.latitude, pos.coords.longitude, "Your location");
         },
         () => {
           // fallback Paris
