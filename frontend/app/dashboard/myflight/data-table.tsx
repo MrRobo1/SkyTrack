@@ -55,7 +55,7 @@ export function DataTable<TData, TValue>({
     <div className="min-h-screen w-full max-w-5xl mx-auto p-4">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter aircraft type..."
+          placeholder="Filter by aircraft type..."
           value={
             (table.getColumn("airplane")?.getFilterValue() as string) ?? ""
           }
