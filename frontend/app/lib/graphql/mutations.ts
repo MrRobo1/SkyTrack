@@ -41,3 +41,14 @@ export const CREATE_FLIGHT_MUTATION = gql`
     }
   }
 `;
+
+export const UPDATE_FLIGHT = gql`
+  mutation Mutation($input: UpdateFlightInput!, $updateFlightId: Float!) {
+    updateFlight(input: $input, id: $updateFlightId) {
+      id
+      fuel_quantity
+      number_of_passangers
+      distance
+    }
+  }
+`;

@@ -65,7 +65,7 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
       </div>
-      <div className="rounded-md border bg-white/70 text-black">
+      <div className="rounded-md border bg-sky-50 text-black">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
