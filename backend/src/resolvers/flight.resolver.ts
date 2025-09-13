@@ -39,4 +39,11 @@ export default class FlightResolver {
     ): Promise<Flight> {
       return this.flightService.updateFlight(id, input);
     }
+
+    @Mutation(() => Boolean)
+    async deleteFlight(
+      @Arg("id", () => Number) id: number
+    ): Promise<boolean> {
+      return this.flightService.deleteFlight(id);
+    }
 }
