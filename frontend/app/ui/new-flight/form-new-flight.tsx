@@ -18,6 +18,7 @@ import { Input } from "@/app/ui/input";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_ALL_AIRPLANES, GET_ALL_AIRPORTS } from "@/app/lib/graphql/queries";
 import { CREATE_FLIGHT_MUTATION } from "@/app/lib/graphql/mutations";
+import { toast, ToastContainer } from "react-toastify";
 
 // ---------------------------------------------
 // 1. Définir le schéma Zod pour les champs
@@ -56,11 +57,11 @@ export default function CreateFlightForm() {
       airplaneId: "",
       departure_airport: "",
       arrival_airport: "",
-      distance: 0,
+      distance: undefined,
       departure_time: "",
       arrival_time: "",
-      number_of_passangers: 0,
-      fuel_quantity: 0,
+      number_of_passangers: undefined,
+      fuel_quantity: undefined,
       comment: "",
     },
   });
@@ -115,11 +116,12 @@ export default function CreateFlightForm() {
 
       const flight = result.data?.createFlight;
       console.log("Flight created:", flight);
-
-      router.push("/dashboard");
+      toast.success("Flight created successfully!");
+      form.reset();
     } catch (error) {
       console.error("Error creating flight:", error);
       if (error instanceof Error) {
+        toast.error("Failed to create flight");
         setErrorMsg(error.message);
       } else {
         setErrorMsg("An unknown error occurred");
@@ -144,228 +146,279 @@ export default function CreateFlightForm() {
   // 6. Rendu du formulaire
   // ---------------------------------------------
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-xl font-semibold mb-4">Create a new flight</h2>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          {/* Airplane */}
-          <FormField
-            control={form.control}
-            name="airplaneId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Airplane</FormLabel>
-                <FormControl>
-                  <select
-                    {...field}
-                    className="border rounded px-2 py-1 w-full"
-                  >
-                    <option value="">-- Select an airplane --</option>
-                    {airplanes.map(
-                      (plane: { id: number; airplane_name: string }) => (
-                        <option key={plane.id} value={plane.id}>
-                          {plane.airplane_name}
+    <div className="mx-auto w-full max-w-4xl px-4 py-8">
+      <ToastContainer position="top-right" autoClose={2000} />
+      <div className="rounded-xl bg-white/80 backdrop-blur shadow-lg p-6">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900">
+          Create a new flight
+        </h2>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="grid gap-6 md:grid-cols-2"
+          >
+            {/* Airplane */}
+            <FormField
+              control={form.control}
+              name="airplaneId"
+              render={({ field }) => (
+                <div className="md:col-span-2">
+                  <FormItem>
+                    <FormLabel>Airplane</FormLabel>
+                    <FormControl>
+                      <select
+                        {...field}
+                        className="border rounded-md px-3 py-2 w-full bg-white/70 focus:outline-none focus:ring-2 focus:ring-sky-300"
+                      >
+                        <option value="">-- Select an airplane --</option>
+                        {airplanes.map(
+                          (plane: { id: number; airplane_name: string }) => (
+                            <option key={plane.id} value={plane.id}>
+                              {plane.airplane_name}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                </div>
+              )}
+            />
+
+            {/* Departure Airport */}
+            <FormField
+              control={form.control}
+              name="departure_airport"
+              render={({ field }) => (
+                <div>
+                  <FormItem>
+                    <FormLabel>Departure Airport</FormLabel>
+                    <FormControl>
+                      <select
+                        {...field}
+                        className="border rounded-md px-3 py-2 w-full bg-white/70 focus:outline-none focus:ring-2 focus:ring-sky-300"
+                      >
+                        <option value="">
+                          -- Select a departure airport --
                         </option>
-                      )
-                    )}
-                  </select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                        {airports.map(
+                          (apt: {
+                            id: number;
+                            airport_name: string;
+                            code_ICAO: string;
+                          }) => (
+                            <option key={apt.id} value={apt.id}>
+                              {apt.airport_name} ({apt.code_ICAO})
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                </div>
+              )}
+            />
 
-          {/* Departure Airport */}
-          <FormField
-            control={form.control}
-            name="departure_airport"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Departure Airport</FormLabel>
-                <FormControl>
-                  <select
-                    {...field}
-                    className="border rounded px-2 py-1 w-full"
-                  >
-                    <option value="">-- Select a departure airport --</option>
-                    {airports.map(
-                      (apt: {
-                        id: number;
-                        airport_name: string;
-                        code_ICAO: string;
-                      }) => (
-                        <option key={apt.id} value={apt.id}>
-                          {apt.airport_name} ({apt.code_ICAO})
+            {/* Arrival Airport */}
+            <FormField
+              control={form.control}
+              name="arrival_airport"
+              render={({ field }) => (
+                <div>
+                  <FormItem>
+                    <FormLabel>Arrival Airport</FormLabel>
+                    <FormControl>
+                      <select
+                        {...field}
+                        className="border rounded-md px-3 py-2 w-full bg-white/70 focus:outline-none focus:ring-2 focus:ring-sky-300"
+                      >
+                        <option value="">
+                          -- Select an arrival airport --
                         </option>
-                      )
-                    )}
-                  </select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+                        {airports.map(
+                          (apt: {
+                            id: number;
+                            airport_name: string;
+                            code_ICAO: string;
+                          }) => (
+                            <option key={apt.id} value={apt.id}>
+                              {apt.airport_name} ({apt.code_ICAO})
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                </div>
+              )}
+            />
+
+            {/* Distance */}
+            <FormField
+              control={form.control}
+              name="distance"
+              render={({ field }) => (
+                <div>
+                  <FormItem>
+                    <FormLabel>Distance (in NM or km)</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="Enter flight distance"
+                        {...field}
+                        value={field.value ?? ""}
+                        onChange={(e) => {
+                          const v = e.target.value;
+                          field.onChange(v === "" ? undefined : Number(v));
+                        }}
+                        className="bg-white/70"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                </div>
+              )}
+            />
+
+            {/* Number of passengers */}
+            <FormField
+              control={form.control}
+              name="number_of_passangers"
+              render={({ field }) => (
+                <div>
+                  <FormItem>
+                    <FormLabel>Number of Passengers</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="Enter passenger count"
+                        {...field}
+                        value={field.value ?? ""}
+                        onChange={(e) => {
+                          const v = e.target.value;
+                          field.onChange(v === "" ? undefined : Number(v));
+                        }}
+                        className="bg-white/70"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                </div>
+              )}
+            />
+
+            {/* Departure time */}
+            <FormField
+              control={form.control}
+              name="departure_time"
+              render={({ field }) => (
+                <div>
+                  <FormItem>
+                    <FormLabel>Departure Date/Time</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="datetime-local"
+                        placeholder="Select date & time"
+                        {...field}
+                        className="bg-white/70"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                </div>
+              )}
+            />
+
+            {/* Arrival time */}
+            <FormField
+              control={form.control}
+              name="arrival_time"
+              render={({ field }) => (
+                <div>
+                  <FormItem>
+                    <FormLabel>Arrival Date/Time</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="datetime-local"
+                        placeholder="Select date & time"
+                        {...field}
+                        className="bg-white/70"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                </div>
+              )}
+            />
+
+            {/* Fuel quantity */}
+            <FormField
+              control={form.control}
+              name="fuel_quantity"
+              render={({ field }) => (
+                <div>
+                  <FormItem>
+                    <FormLabel>Fuel Quantity</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="Enter fuel quantity"
+                        {...field}
+                        value={field.value ?? ""}
+                        onChange={(e) => {
+                          const v = e.target.value;
+                          field.onChange(v === "" ? undefined : Number(v));
+                        }}
+                        className="bg-white/70"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                </div>
+              )}
+            />
+
+            {/* Comment */}
+            <FormField
+              control={form.control}
+              name="comment"
+              render={({ field }) => (
+                <div className="md:col-span-2">
+                  <FormItem>
+                    <FormLabel>Comment (optional)</FormLabel>
+                    <FormControl>
+                      <textarea
+                        className="border rounded px-2 py-1 w-full"
+                        rows={3}
+                        placeholder="Any special remarks?"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                </div>
+              )}
+            />
+
+            {/* Erreur éventuelle */}
+            {errorMsg && (
+              <div className="md:col-span-2">
+                <p className="text-red-500">Error: {errorMsg}</p>
+              </div>
             )}
-          />
 
-          {/* Arrival Airport */}
-          <FormField
-            control={form.control}
-            name="arrival_airport"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Arrival Airport</FormLabel>
-                <FormControl>
-                  <select
-                    {...field}
-                    className="border rounded px-2 py-1 w-full"
-                  >
-                    <option value="">-- Select an arrival airport --</option>
-                    {airports.map(
-                      (apt: {
-                        id: number;
-                        airport_name: string;
-                        code_ICAO: string;
-                      }) => (
-                        <option key={apt.id} value={apt.id}>
-                          {apt.airport_name} ({apt.code_ICAO})
-                        </option>
-                      )
-                    )}
-                  </select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Distance */}
-          <FormField
-            control={form.control}
-            name="distance"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Distance (in NM or km)</FormLabel>
-                <FormControl>
-                  <Input
-                    type="number"
-                    placeholder="Enter flight distance"
-                    {...field}
-                    onChange={(e) => field.onChange(+e.target.value)}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Departure time */}
-          <FormField
-            control={form.control}
-            name="departure_time"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Departure Date/Time</FormLabel>
-                <FormControl>
-                  <Input
-                    type="datetime-local"
-                    placeholder="Select date & time"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Arrival time */}
-          <FormField
-            control={form.control}
-            name="arrival_time"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Arrival Date/Time</FormLabel>
-                <FormControl>
-                  <Input
-                    type="datetime-local"
-                    placeholder="Select date & time"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Number of passengers */}
-          <FormField
-            control={form.control}
-            name="number_of_passangers"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Number of Passengers</FormLabel>
-                <FormControl>
-                  <Input
-                    type="number"
-                    placeholder="Enter passenger count"
-                    {...field}
-                    onChange={(e) => field.onChange(+e.target.value)}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Fuel quantity */}
-          <FormField
-            control={form.control}
-            name="fuel_quantity"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Fuel Quantity</FormLabel>
-                <FormControl>
-                  <Input
-                    type="number"
-                    placeholder="Enter fuel quantity"
-                    {...field}
-                    onChange={(e) => field.onChange(+e.target.value)}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Comment */}
-          <FormField
-            control={form.control}
-            name="comment"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Comment (optional)</FormLabel>
-                <FormControl>
-                  <textarea
-                    className="border rounded px-2 py-1 w-full"
-                    rows={3}
-                    placeholder="Any special remarks?"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Erreur éventuelle */}
-          {errorMsg && <p className="text-red-500">Error: {errorMsg}</p>}
-
-          {/* Submit button */}
-          <div className="flex gap-4">
-            <Button type="submit" variant="outline" disabled={loading}>
-              {creatingFlight ? "Creating flight..." : "Create Flight"}
-            </Button>
-          </div>
-        </form>
-      </Form>
+            {/* Submit button */}
+            <div className="md:col-span-2 flex justify-end">
+              <Button type="submit" variant="outline" disabled={loading}>
+                {creatingFlight ? "Creating flight..." : "Submit"}
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </div>
     </div>
   );
 }
