@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/app/ui/button";
 import { EditableNumberCell } from "@/app/dashboard/myflight/editable-cell";
+import DeleteFlightButton from "@/app/dashboard/myflight/deleteFlightButton";
 
 export type FlightRow = {
   id: number;
@@ -55,7 +56,7 @@ export const columns: ColumnDef<FlightRow>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Passengers
+          PAX
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -88,5 +89,11 @@ export const columns: ColumnDef<FlightRow>[] = [
         field="distance"
       />
     ),
+  },
+  {
+    id: "actions",
+    header: "Actions",
+    cell: ({ row }) => <DeleteFlightButton id={row.original.id} />,
+    size: 80,
   },
 ];

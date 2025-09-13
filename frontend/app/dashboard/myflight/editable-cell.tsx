@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 const FIELD_LABEL: Record<EditableNumberCellProps["field"], string> = {
   fuel_quantity: "Fuel quantity",
-  number_of_passangers: "Passengers",
+  number_of_passangers: "PAX",
   distance: "Distance",
 };
 

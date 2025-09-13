@@ -52,3 +52,9 @@ export const UPDATE_FLIGHT = gql`
     }
   }
 `;
+
+export const DELETE_FLIGHT = gql`
+  mutation Mutation($deleteFlightId: Float!) {
+    deleteFlight(id: $deleteFlightId)
+  }
+`;
