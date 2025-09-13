@@ -108,4 +108,13 @@ export class FlightService {
 
       return updated ?? flight;
     }
+
+    async deleteFlight(id: number): Promise<boolean> {
+    const flight = await Flight.findOne({ where: { id } });
+    if (!flight) {
+      return false;
+    }
+    await flight.remove();
+    return true;
+  }
 }
